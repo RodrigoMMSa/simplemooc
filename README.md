@@ -1,12 +1,12 @@
 # Learning Django
 ## 1. Useful commands:
-* Django-admin.py:
+* **Django-admin.py:**
 
 >* Startproject:
 >>Starts project with a functional structure  
 >>\# python django-admin.py startproject
 
-* Manage.py:
+* **Manage.py:**
 >* Help:
 >>Starts  ‘Manage.py’ command guide  
 >>\# 	python manage.py help
