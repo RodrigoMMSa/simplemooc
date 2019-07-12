@@ -22,3 +22,7 @@
 >* Startapp:
 >>Since Django is divided in apps, this command creates an app template  
 >>\#	python manage.py startapp
+
+>* Makemigrations:
+>>Add new modifications to DataBase  
+>>\#    python manage.py makemigrations
