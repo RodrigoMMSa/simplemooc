@@ -26,3 +26,7 @@
 >* Makemigrations:
 >>Add new modifications to DataBase  
 >>\#    python manage.py makemigrations
+
+>* Createsuperuser:
+>>Add new super user to Database 
+>>\#    python manage.py createsuperuser

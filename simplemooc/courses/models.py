@@ -16,3 +16,6 @@ class Course(models.Model):
     created_at = models.DateTimeField('Created_at', auto_now_add=True)
     updated_at = models.DateTimeField('Last Modified at', auto_now=True)
     objects = CourseManager()
+
+    def __str__(self):
+        return self.name
