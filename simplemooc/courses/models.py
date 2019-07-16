@@ -13,9 +13,14 @@ class Course(models.Model):
     description = models.TextField('Description', blank=True)
     start_date = models.DateField('Start Date', null=True, blank=True)
     image = models.ImageField(upload_to='courses/images', verbose_name='Image', null=True, blank=True)
-    created_at = models.DateTimeField('Created_at', auto_now_add=True)
+    created_at = models.DateTimeField('Created at', auto_now_add=True)
     updated_at = models.DateTimeField('Last Modified at', auto_now=True)
     objects = CourseManager()
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = 'Course'
+        verbose_name_plural = 'Courses'
+        ordering = ['name']
