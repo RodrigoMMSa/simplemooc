@@ -5,6 +5,5 @@ app_name = 'courses'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    # re_path('(?P<pk>\d+)/', views.details, name='details')
-    path('<int:pk>/', views.details, name='details')
+    path('<str:slug>/', views.details, name='details')
 ]
