@@ -34,9 +34,9 @@
             {% else %}
             <img src="{% static 'img/course-image.png' %}" alt="" />
             {% endif %}
-            <h4>Dúvidas?</h4>
+            <h4>Questions?</h4>
             <p>
-                <a href="#contato" title="" class="pure-button">Fale Conosco</a>
+                <a href="#contato" title="" class="pure-button">Ask our staff</a>
             </p>
         </div>
     </div>
@@ -44,7 +44,11 @@
 <div class="pure-g-r content-ribbon" id="contato">
     <div class="pure-u-1">
         <h3 class="ribbon">Having troubles?<br>Ask our staff!</h3>
-        <form class="pure-form pure-form-aligned" method="post">
+        {% if is_valid %}
+        <p>Question successfully submitted!!</p>
+        {% endif %}
+
+        <form action="#contato" class="pure-form pure-form-aligned" method="post">
             {% csrf_token %}
             <fieldset>
                 {% for field in form %}
