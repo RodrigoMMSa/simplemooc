@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from .core import urls as core_url
 from .courses import urls as course_url
+from .accounts import urls as account_url
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -25,6 +26,7 @@ urlpatterns = [
     path('', include(core_url, namespace='core')),
     path('courses/', include(course_url, namespace='courses')),
     path('admin/', admin.site.urls),
+    path('account/', include(account_url, namespace='accounts')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
