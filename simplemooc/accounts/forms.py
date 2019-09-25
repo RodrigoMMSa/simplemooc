@@ -1,16 +1,13 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+
+
+User = get_user_model()
 
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(label='E-mail')
-
-    def clean_email(self):
-        email = self.cleaned_data['email']
-        if User.objects.filter(email=email).exists():
-            raise forms.ValidationError('An user with this email already exists')
-        return email
 
     def save(self, commit=True):
         user = super(RegisterForm, self).save(commit=False)
@@ -21,13 +18,6 @@ class RegisterForm(UserCreationForm):
 
 
 class EditAccountForm(forms.ModelForm):
-    def clean_email(self):
-        email = self.cleaned_data['email']
-        queryset = User.objects.filter(email=email).exclude(pk=self.instance.pk)
-        if queryset.exists():
-            raise forms.ValidationError('An user with this email already exists')
-        return email
-
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name']
+        fields = ['username', 'email', 'name']
