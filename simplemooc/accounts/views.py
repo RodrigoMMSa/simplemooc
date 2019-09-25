@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
-from .forms import RegisterForm, EditAccountForm
+from .forms import RegisterForm, EditAccountForm, PasswordResetForm
 
 
 @login_required
@@ -25,6 +25,13 @@ def register(request):
     context = {
         'form': form
     }
+    return render(request, template_name, context)
+
+
+def password_reset(request):
+    template_name = 'accounts/password_reset.html'
+    form = PasswordResetForm(request.POST)
+    context = {'form': form}
     return render(request, template_name, context)
 
 
