@@ -50,7 +50,7 @@ def password_reset_confirmation(request, key):
     if form.is_valid():
         form.save()
         context['success'] = True
-        context['form'] = form
+    context['form'] = form
     return render(request, template_name, context)
 
 
