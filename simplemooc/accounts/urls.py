@@ -11,6 +11,7 @@ urlpatterns = [
     path('login/', LoginView.as_view(template_name='accounts/login.html'), name='login'),
     path('register/', views.register, name='register'),
     path('password-reset/', views.password_reset, name='password_reset'),
+    path('password-confirmation/<str:key>/', views.password_reset_confirmation, name='password_reset_confirmation'),
     path('edit/', views.edit, name='edit'),
     path('edit-password/', views.edit_password, name='edit_password'),
     path('logout/', LogoutView.as_view(next_page='core:home'), name='logout'),
