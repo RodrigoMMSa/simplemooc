@@ -44,12 +44,16 @@ class Enrollment(models.Model):
     course = models.ForeignKey(
         Course, verbose_name='Course', related_name='enrollments', on_delete=models.CASCADE
     )
-    status = models.IntegerField('Situation', choices=STATUS_CHOICES, default=0, blank=True)
+    status = models.IntegerField('Situation', choices=STATUS_CHOICES, default=1, blank=True)
 
     created_at = models.DateTimeField('Created at', auto_now_add=True)
     updated_at = models.DateTimeField('Last Modified at', auto_now=True)
 
+    def active(self):
+        self.status = 1
+        self.save()
+
     class Meta:
-        verbose_name = 'Subscription'
-        verbose_name_plural = 'Subscriptions'
+        verbose_name = 'Enrollment'
+        verbose_name_plural = 'Enrollments'
         unique_together = (('user', 'course'),)
