@@ -4,7 +4,7 @@ from simplemooc.courses.models import Enrollment
 
 register = template.Library()
 
-
+# inclusion tag not being used
 @register.inclusion_tag('courses/templatetags/my_courses.html')
 def my_courses(user):
     enrollments = Enrollment.objects.filter(user=user)
