@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm, SetPasswordForm
 from .forms import RegisterForm, EditAccountForm, PasswordResetForm, PasswordReset
 from django.contrib import messages
+from simplemooc.courses.models import Enrollment
 
 
 User = get_user_model()
@@ -12,7 +13,8 @@ User = get_user_model()
 @login_required
 def dashboard(request):
     template_name = 'accounts/dashboard.html'
-    return render(request, template_name)
+    context = {}
+    return render(request, template_name, context)
 
 
 def register(request):
