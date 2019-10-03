@@ -6,9 +6,6 @@
 {% block dashboard_content %}
 <form class="pure-form pure-form-stacked" method="POST">
     {% csrf_token %}
-    {% if success %}
-    <p>Contact information successfully changed</p>
-    {% endif %}
     <fieldset>
         {{ form.non_field_errors }}
         {% for field in form %}
