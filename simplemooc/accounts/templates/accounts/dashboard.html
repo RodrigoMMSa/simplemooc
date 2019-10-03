@@ -15,7 +15,13 @@
         <div class="pure-menu pure-menu-open">
             <a class="pure-menu-heading">My Courses</a>
             <ul>
-                {% my_courses user %}
+                {% load_my_courses user as enrollments %}
+                {% for enrollment in enrollments %}
+                <li><a href="#">{{ enrollment.course }}</a></li>
+                {% empty %}
+                <li>No course found</li>
+                {% endfor %}
+
                 <li class="pure-menu-heading">Minha Conta</li>
                 <li><a href="{% url 'accounts:edit' %}">Editar Conta</a></li>
                 <li><a href="{% url 'accounts:edit_password' %}">Editar Senha</a></li>
