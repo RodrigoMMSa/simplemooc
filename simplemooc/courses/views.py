@@ -63,5 +63,19 @@ def announcements(request, slug):
             messages.error(request, 'Your enrollment is pendent')
             return redirect('accounts:dashboard')
     template = 'courses/announcements.html'
-    context = {'course': course}
+    context = {'course': course, 'announcements': course.announcements.all}
+    return render(request, template, context)
+
+
+@login_required
+def show_announcement(request, slug, pk):
+    course = get_object_or_404(Course, slug=slug)
+    if not request.user.is_staff:
+        enrollment = get_object_or_404(Enrollment, user=request.user, course=course)
+        if not enrollment.is_approved():
+            messages.error(request, 'Your enrollment is pendent')
+            return redirect('accounts:dashboard')
+    template = 'course/show_announcement.html'
+    announcement = get_object_or_404(course.announcements.all, pk=pk)
+    context = {'course': course, 'announcement': announcement}
     return render(request, template, context)

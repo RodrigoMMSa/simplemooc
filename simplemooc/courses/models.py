@@ -60,3 +60,33 @@ class Enrollment(models.Model):
         verbose_name = 'Enrollment'
         verbose_name_plural = 'Enrollments'
         unique_together = (('user', 'course'),)
+
+
+class Announcement(models.Model):
+    course = models.ForeignKey(Course, verbose_name='Course', related_name='announcements', on_delete=models.CASCADE)
+    title = models.CharField('Title', max_length=100)
+    content = models.TextField('Content')
+    created_at = models.DateTimeField('Created at', auto_now_add=True)
+    updated_at = models.DateTimeField('Last Modified at', auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Announcement'
+        verbose_name_plural = 'Announcements'
+        ordering = ['-created_at']
+
+
+class Comment(models.Model):
+    announcement = models.ForeignKey(Announcement,
+                                     verbose_name='Announcement', related_name='comments', on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='user', on_delete=models.CASCADE)
+    comment = models.TextField('Comment')
+    created_at = models.DateTimeField('Created at', auto_now_add=True)
+    updated_at = models.DateTimeField('Last Modified at', auto_now=True)
+
+    class Meta:
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
+        ordering = ['created_at']
