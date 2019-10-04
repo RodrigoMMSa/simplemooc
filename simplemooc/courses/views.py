@@ -30,7 +30,7 @@ def details(request, slug):
 
 
 @login_required
-def enrollment(request, slug):
+def enrollments(request, slug):
     course = get_object_or_404(Course, slug=slug)
     enrollment, created = Enrollment.objects.get_or_create(user=request.user, course=course)
     if created:
@@ -39,3 +39,24 @@ def enrollment(request, slug):
     else:
         messages.info(request, "You are already enrolled in this course")
     return redirect('accounts:dashboard')
+
+
+@login_required
+def undo_enrollments(request, slug):
+    course = get_object_or_404(Course, slug=slug)
+    enrollment = get_object_or_404(Enrollment, user=request.user, course=course)
+    template = 'courses/undo_enrollment.html'
+    return render(request, template)
+
+
+@login_required
+def announcements(request, slug):
+    course = get_object_or_404(Course, slug=slug)
+    if not request.user.is_staff:
+        enrollment = get_object_or_404(Enrollment, user=request.user, course=course)
+        if not enrollment.is_approved():
+            messages.error(request, 'Your enrollment is pendent')
+            return redirect('accounts:dashboard')
+    template = 'courses/announcements.html'
+    context = {'course': course}
+    return render(request, template, context)
