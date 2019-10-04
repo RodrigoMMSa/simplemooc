@@ -5,6 +5,7 @@
 {% block content %}
 <div class="pure-g-r content-ribbon">
     <div class="pure-u-1">
+        <h1 class="pure-menu-heading">Welcome, {{ user }}</h1>
         <ul class="breadcrumb">
             {% block breadcrumb %}
             <li><a href="{% url 'accounts:dashboard' %}">Meu Painel</a></li>
@@ -17,13 +18,23 @@
             <ul>
                 {% load_my_courses user as enrollments %}
                 {% for enrollment in enrollments %}
-                <li><a href="#">{{ enrollment.course }}</a></li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-book"></i>
+                        {{ enrollment.course }}
+                    </a>
+                </li>
                 {% empty %}
                 <li>No course found</li>
                 {% endfor %}
 
                 <li class="pure-menu-heading">Minha Conta</li>
-                <li><a href="{% url 'accounts:edit' %}">Editar Conta</a></li>
+                <li>
+                    <a href="{% url 'accounts:edit' %}">
+                        <i class="fas fa-cog"></i>
+                        Editar Conta
+                    </a>
+                </li>
                 <li><a href="{% url 'accounts:edit_password' %}">Editar Senha</a></li>
             </ul>
         </div>
