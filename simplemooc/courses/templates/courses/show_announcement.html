@@ -1,6 +1,5 @@
 {% extends "courses/course_dashboard.html" %}
 {% block dashboard_content %}
-{% for announcement in announcements %}
 <div class="well">
     <h2>{{ announcement.title }}</h2>
     {{announcement.content|linebreaks }}
@@ -8,13 +7,19 @@
 <div class="well">
     <h4 id="comments">
         Comments
-        <a class="fright" href="#">Comment</a>
+        <a class="fright" href="#add_comment">Comment</a>
     </h4>
+    <hr />
     {% for comment in announcement.comments.all %}
     <p>
-        <strong>{{comment.user}}</strong> {{comment.comment|linebreaks}}
+        <strong>{{ comment.user }}</strong> said at {{ comment.created_at|timesince }} ago: <br />
+        {{ comment.comment|linebreaksbr }}
+    </p>
+    <hr>
+    {% empty %}
+    <p>
+        No comments available.
     </p>
     {% endfor %}
 </div>
-{% endfor %}
 {% endblock %}

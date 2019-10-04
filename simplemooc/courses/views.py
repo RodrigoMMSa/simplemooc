@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Course, Enrollment
+from .models import Course, Enrollment, Announcement
 from .forms import ContactCourse
 
 
@@ -75,7 +75,7 @@ def show_announcement(request, slug, pk):
         if not enrollment.is_approved():
             messages.error(request, 'Your enrollment is pendent')
             return redirect('accounts:dashboard')
-    template = 'course/show_announcement.html'
-    announcement = get_object_or_404(course.announcements.all, pk=pk)
+    template = 'courses/show_announcement.html'
+    announcement = get_object_or_404(course.announcements.all(), pk=pk)
     context = {'course': course, 'announcement': announcement}
     return render(request, template, context)
