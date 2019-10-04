@@ -42,11 +42,16 @@ def enrollments(request, slug):
 
 
 @login_required
-def undo_enrollments(request, slug):
+def undo_enrollment(request, slug):
     course = get_object_or_404(Course, slug=slug)
     enrollment = get_object_or_404(Enrollment, user=request.user, course=course)
+    if request.method == 'POST':
+        enrollment.delete()
+        messages.success(request, 'Your enrollment was successfully deleted')
+        return redirect('accounts:dashboard')
     template = 'courses/undo_enrollment.html'
-    return render(request, template)
+    context = {'enrollment': enrollment, 'course': course}
+    return render(request, template, context)
 
 
 @login_required
