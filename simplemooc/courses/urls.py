@@ -9,5 +9,6 @@ urlpatterns = [
     path('<str:slug>/', views.details, name='details'),
     path('<str:slug>/enrollment/', views.enrollments, name='enrollment'),
     path('<str:slug>/announcements/', views.announcements, name='announcements'),
-    path('<str:slug>/undo-enrollment/', views.undo_enrollment, name='undo_enrollment')
+    path('<str:slug>/undo-enrollment/', views.undo_enrollment, name='undo_enrollment'),
+    path('<str:slug>/show-announcement/', views.show_announcement, name='show_announcement')
 ]

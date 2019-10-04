@@ -5,7 +5,7 @@
     <h2>{{ announcement.title }}</h2>
     {{announcement.content|linebreaks}}
     <p>
-        <a href="#" title="">
+        <a href="{% url 'course:show_announcement' %}" title="">
             <i class="fas fa-comments"></i>
             {% with comments_count=announcement.comments.count %}
             {{ comments_count }}

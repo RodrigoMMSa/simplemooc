@@ -1,0 +1,20 @@
+{% extends "courses/course_dashboard.html" %}
+{% block dashboard_content %}
+{% for announcement in announcements %}
+<div class="well">
+    <h2>{{ announcement.title }}</h2>
+    {{announcement.content|linebreaks }}
+</div>
+<div class="well">
+    <h4 id="comments">
+        Comments
+        <a class="fright" href="#">Comment</a>
+    </h4>
+    {% for comment in announcement.comments.all %}
+    <p>
+        <strong>{{comment.user}}</strong> {{comment.comment|linebreaks}}
+    </p>
+    {% endfor %}
+</div>
+{% endfor %}
+{% endblock %}
