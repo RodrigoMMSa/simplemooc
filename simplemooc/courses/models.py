@@ -51,7 +51,21 @@ class Lesson(models.Model):
         ordering = ['number']
 
 
-# class Material(models.Model)
+class Material(models.Model):
+    name = models.CharField('Name', max_length=100)
+    embedded = models.TextField('Embedded Video', blank=True)
+    file = models.FileField(upload_to='lessons/materials', blank=True, null=True)
+    lesson = models.ForeignKey(Lesson, verbose_name='Lesson', related_name='materials', on_delete=models.CASCADE)
+
+    def is_embedded(self):
+        return bool(self.embedded)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Material'
+        verbose_name_plural = 'Materials'
 
 
 class Enrollment(models.Model):
@@ -130,5 +144,3 @@ def post_save_announcement(instance, created, **kwargs):
 
 
 models.signals.post_save.connect(post_save_announcement, sender=Announcement, dispatch_uid='post_save_announcement')
-
-
