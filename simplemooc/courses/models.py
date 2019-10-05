@@ -33,6 +33,27 @@ class Course(models.Model):
         ordering = ['name']
 
 
+class Lesson(models.Model):
+    name = models.CharField('Name', max_length=100)
+    description = models.TextField('Description', blank=True)
+    number = models.IntegerField('Number (order)', blank=True, default=0)
+    release_date = models.DateField('Release Date', blank=True, null=True)
+    course = models.ForeignKey(Course, verbose_name='Course', related_name='lessons', on_delete=models.CASCADE)
+    created_at = models.DateTimeField('Created at', auto_now_add=True)
+    updated_at = models.DateTimeField('Last Modified at', auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Lesson'
+        verbose_name_plural = 'Lessons'
+        ordering = ['number']
+
+
+# class Material(models.Model)
+
+
 class Enrollment(models.Model):
     STATUS_CHOICES = (
         (0, 'Pendent'),
@@ -92,6 +113,9 @@ class Comment(models.Model):
         verbose_name_plural = 'Comments'
         ordering = ['created_at']
 
+    def __str__(self):
+        return self.user
+
 
 def post_save_announcement(instance, created, **kwargs):
     if created:
@@ -106,3 +130,5 @@ def post_save_announcement(instance, created, **kwargs):
 
 
 models.signals.post_save.connect(post_save_announcement, sender=Announcement, dispatch_uid='post_save_announcement')
+
+
