@@ -14,10 +14,11 @@
     </div>
     <div class="pure-u-1-3">
         <div class="pure-menu pure-menu-open">
-            <a class="pure-menu-heading">My Courses</a>
+
             <ul>
                 {% block menu_options %}
                 {% for enrollment in enrollments %}
+                <li><a class="pure-menu-heading">My Courses</a></li>
                 <li>
                     <a href="{% url 'courses:announcements' enrollment.course.slug %}">
                         <i class="fas fa-book"></i>
