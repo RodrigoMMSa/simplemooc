@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Course, Enrollment, Announcement
 from .forms import ContactCourse, CommentForm
+from .decorators import enrollment_required
 
 
 def index(request):
