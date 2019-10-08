@@ -9,7 +9,7 @@ def enrollment_required(view_func):
         slug = kwargs['slug']
         course = get_object_or_404(Course, slug=slug)
         has_permission = request.user.is_staff
-        message = 'what?'
+        message = ''
         if not has_permission:
             try:
                 enrollment = Enrollment.objects.get(user=request.user, course=course)
@@ -17,7 +17,6 @@ def enrollment_required(view_func):
                 message = 'Sorry, you do not have permission to access this page'
             else:
                 if enrollment.is_approved():
-                    messages.info(request, message)
                     has_permission = True
                 else:
                     message = 'Your enrollment in this course is still pendent'

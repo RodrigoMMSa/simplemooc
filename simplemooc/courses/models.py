@@ -28,6 +28,10 @@ class Course(models.Model):
     def get_absolute_url(self):
         return reverse('courses:details', args=(self.slug,))
 
+    def release_lessons(self):
+        today = timezone.now().date()
+        return self.lessons.filter(release_date__lte=today)
+
     class Meta:
         verbose_name = 'Course'
         verbose_name_plural = 'Courses'
@@ -49,7 +53,7 @@ class Lesson(models.Model):
     def is_available(self):
         if self.release_date:
             today = timezone.now().date()
-            return self.release_date >= today
+            return self.release_date <= today
         return False
 
     class Meta:

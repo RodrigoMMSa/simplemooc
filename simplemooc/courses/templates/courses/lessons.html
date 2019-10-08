@@ -1,6 +1,20 @@
 {% extends "courses/course_dashboard.html" %}
 {% block dashboard_content %}
-{% for  %}
+{% for lesson in course.release_lessons %}
 <div class="well">
-
+    <h2><a href="#">{{ lesson }}</a></h2>
+    <p>
+        {{ lesson.description|truncatewords:'20' }}
+        <br />
+        <a href="#" title="">
+            <i class="fas fa-eye"></i>
+            Access Lesson
+        </a>
+    </p>
 </div>
+{% empty %}
+<div class="well">
+    <h2>No lesson available</h2>
+</div>
+{% endfor %}
+{% endblock %}
