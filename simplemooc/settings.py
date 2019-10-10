@@ -161,3 +161,8 @@ AUTH_USER_MODEL = 'accounts.User'
 # Configure Django App for Heroku.
 import django_heroku
 django_heroku.settings(locals())
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
