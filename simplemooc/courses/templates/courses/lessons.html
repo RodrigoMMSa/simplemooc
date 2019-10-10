@@ -1,12 +1,12 @@
 {% extends "courses/course_dashboard.html" %}
 {% block dashboard_content %}
-{% for lesson in course.release_lessons %}
+{% for lesson in lessons %}
 <div class="well">
     <h2><a href="#">{{ lesson }}</a></h2>
     <p>
         {{ lesson.description|truncatewords:'20' }}
         <br />
-        <a href="#" title="">
+        <a href="{% url 'courses:lesson' course.slug lesson.pk %}" title="">
             <i class="fas fa-eye"></i>
             Access Lesson
         </a>
