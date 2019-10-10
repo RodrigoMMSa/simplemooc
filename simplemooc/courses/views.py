@@ -103,18 +103,26 @@ def lessons(request, slug):
 def lesson(request, slug, pk):
     course = request.course
     les_son = get_object_or_404(Lesson, pk=pk, course=course)
-    if not request.user.is_staff and not lesson.is_available():
+    if not request.user.is_staff and not les_son.is_available():
         messages.error(request, 'This lesson is not available')
         return redirect('courses:lessons', slug=course.slug)
     template = 'courses/lesson.html'
     context = {'course': course, 'lesson': les_son}
     return render(request, template, context)
 
+
 @login_required
 @enrollment_required
 def material(request, slug, pk):
     course = request.course
-    mat_erial = get_object_or_404(Material, pk=pk, course=course)
+    mat_erial = get_object_or_404(Material, pk=pk, lesson__course=course)
+    les_son = mat_erial.lesson
+    if not request.user.is_staff and not lesson.is_available():
+        messages.error(request, 'This material is not available')
+        return redirect('courses:lesson', slug=course.slug, pk=les_son.pk)
+    if not mat_erial.is_embedded():
+        redirect(mat_erial.file.url)
+
     template = 'courses/material.html'
-    context = {'course': course, 'material': mat_erial}
+    context = {'course': course, 'material': mat_erial, 'lesson': les_son}
     return render(request, template, context)
