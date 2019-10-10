@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Course, Enrollment, Announcement, Lesson
+from .models import Course, Enrollment, Announcement, Lesson, Material
 from .forms import ContactCourse, CommentForm
 from .decorators import enrollment_required
 
@@ -110,4 +110,11 @@ def lesson(request, slug, pk):
     context = {'course': course, 'lesson': les_son}
     return render(request, template, context)
 
-
+@login_required
+@enrollment_required
+def material(request, slug, pk):
+    course = request.course
+    mat_erial = get_object_or_404(Material, pk=pk, course=course)
+    template = 'courses/material.html'
+    context = {'course': course, 'material': mat_erial}
+    return render(request, template, context)
