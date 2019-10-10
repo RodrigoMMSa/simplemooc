@@ -30,3 +30,7 @@
 >* Createsuperuser:
 >>Add new super user to Database 
 >>\#    python manage.py createsuperuser
+
+>* pip freeze:
+>>Create requirements file
+>>>\#   pip freeze > requirements.txt
